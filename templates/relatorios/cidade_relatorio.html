@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de Cidades</h2>
+    
+    {% if cidades %}
+    <table class="relatorio-tabela">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome da Cidade</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cidade in cidades %}
+            <tr>
+                <td>{{ cidade.codigo }}</td>
+                <td>{{ cidade.nome_cidade }}</td>
+                <td>{{ cidade.estado }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mensagem-sem-registros">Nenhuma cidade encontrada.</p>
+    {% endif %}
+{% endblock %}

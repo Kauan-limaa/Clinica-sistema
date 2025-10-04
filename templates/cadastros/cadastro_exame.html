@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Exame</h2>
+
+<h3>Buscar exame</h3>
+<form action="{{ url_for('exames_bp.buscar') }}" method="GET">
+    <div>
+        <label>Código do exame:</label>
+        <input type="text" name="codigo" required>
+        <button type="submit">Buscar</button>
+    </div>
+</form>
+
+<hr>
+
+<h3>Dados do exame</h3>
+<form action="{{ url_for('exames_bp.cadastrar_exame_flask') }}" method="POST">
+    <div>
+        <label>Código:</label>
+        <input type="text" name="codigo" readonly value="{{ exame.codigo if exame }}">
+    </div>
+    <div>
+        <label>Exame:</label>
+        <input type="text" name="descricao_exa" required value="{{ exame.descricao_exa if exame }}">
+    </div>
+    <div>
+        <label>Especialidade:</label>
+        <select name="especialidade" required>
+            <option value="">Selecione a Especialidade</option>
+            {% for especialidade in especialidades %}
+            <option value="{{ especialidade.codigo }}" 
+                {% if exame and exame.especialidade_codigo == especialidade.codigo %}selected{% endif %}>
+                {{ especialidade.descricao_esp }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label>Valor do exame:</label>
+        <input type="text" name="valor_exame" required value="{{ exame.valor_exame if exame }}">
+    </div>
+    <div class="botoes">
+        <button type="submit" name="acao" value="cadastrar">Cadastrar</button>
+        <button type="submit" name="acao" value="excluir">Excluir</button>
+        <button type="submit" name="acao" value="editar">Editar</button>
+    </div>
+</form>
+
+{% endblock %}

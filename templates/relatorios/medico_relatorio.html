@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de médicos</h2>
+    
+    {% if medicos %}
+    <table class="relatorio-tabela">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Médicos</th>
+                <th>Endereço</th>
+                <th>Telefone</th>
+                <th>Cidade</th>
+                <th>Especialidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medico in medicos %}
+            <tr>
+                <td>{{ medico.codigo }}</td>
+                <td>{{ medico.nome_medico }}</td>
+                <td>{{ medico.endereco }}</td>
+                <td>{{ medico.telefone }}</td>
+                <td>{{ medico.cidade }}</td>
+                <td>{{ medico.especialidade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mensagem-sem-registros">Nenhum médico encontrada.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+[
+    {
+        "codigo": 1,
+        "descricao_exa": "Quimioterapia",
+        "especialidade_codigo": 1,
+        "valor_exame": "500,00"
+    },
+    {
+        "codigo": 2,
+        "descricao_exa": "raio x de torax",
+        "especialidade_codigo": 1,
+        "valor_exame": "250,00"
+    }
+]

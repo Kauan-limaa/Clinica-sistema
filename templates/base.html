@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica + Saúde</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+</head>
+<body>
+    <header class="barra-navegacao">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo da clínica + Saude">
+        </div>
+        
+        <div class="menu">
+            <a href="{{ url_for('menu') }}">Menu</a>
+            <div class="dropdown">
+                <a href="#">Cadastros</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('cidades_bp.cadastrar_cidade_flask') }}">Cidade</a>
+                    <a href="{{ url_for('pacientes_bp.cadastrar_paciente_flask') }}">Paciente</a>
+                    <a href="{{ url_for('especialidades_bp.cadastrar_especialidade_flask') }}">Especialidade</a>
+                    <a href="{{ url_for('medicos_bp.cadastrar_medico_flask') }}">Médico</a>
+                    <a href="{{ url_for('exames_bp.cadastrar_exame_flask') }}">Exame</a>
+                    <a href="{{ url_for('consultas_bp.cadastrar_consulta_flask') }}">Consulta</a>
+                    <a href="{{ url_for('diarias_bp.cadastrar_diaria_flask') }}">Diária</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#">Relatórios</a>
+                <div class="dropdown-content"> 
+                    <a href="{{ url_for('relatorios_cidade_bp.relatorio_cidades_flask') }}">Cidades</a>
+                    <a href="{{ url_for('relatorios_consulta_bp.relatorio_consultas_flask') }}">Consultas</a>
+                    <a href="{{ url_for('relatorios_especialidade_bp.relatorio_especialidade_flask') }}">Especialidades</a>
+                    <a href="{{ url_for('relatorios_exame_bp.relatorio_exame_flask') }}">Exames</a>
+                    <a href="{{ url_for('relatorios_medico_bp.relatorio_medico_flask') }}">Médicos</a>
+                    <a href="{{ url_for('relatorios_paciente_bp.relatorio_paciente_flask') }}">Pacientes</a>
+                    <a href="{{ url_for('relatorios_diaria_bp.relatorio_diarias_flask') }}">Diárias</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Faturamento</a>
+                <div class="dropdown-content"> 
+                    <a href="{{ url_for('faturamento_diario_bp.faturamento_diario_flask') }}">Faturamento Diário</a>
+                    <a href="{{ url_for('faturamento_medico_bp.faturamento_medico_flask') }}">Faturamento por Médico</a>
+                    <a href="{{ url_for('faturamento_especialidade_bp.faturamento_especialidade_flask') }}">Faturamento por especialidade</a>
+                </div>
+                </div>
+            </div>
+            </div>
+    </header>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

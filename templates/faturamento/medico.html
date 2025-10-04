@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de Faturamento por Médico</h2>
+
+    <form action="{{ url_for('faturamento_medico_bp.faturamento_medico_flask') }}" method="GET" class="form-busca-data">
+        <label for="codigo_busca">Digite o Código do Médico:</label>
+        
+        <input type="number" id="codigo_busca" name="codigo_medico" value="{{ codigo_digitado or '' }}" required min="1">
+        
+        <button type="submit" class="botao-submit">Buscar Faturamento</button>
+    </form>
+    
+    <hr>
+    
+    {% if codigo_digitado %}
+        <h3>
+            Faturamento Total para o Médico (Código {{ codigo_digitado }}):
+            <span class="valor-total">
+                R$ {{ faturamento_total | default(0.0) | round(2) | string | replace('.', ',') }}
+            </span>
+        </h3>
+
+        {% if dados_faturamento %}
+            <table class="relatorio-tabela">
+                <thead>
+                    <tr>
+                        <th>Cód. Consulta</th>
+                        <th>Cód. Paciente</th>
+                        <th>Cód. Médico</th>
+                        <th>Descrição Item</th>
+                        <th>Data da Consulta</th> <th>Valor (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in dados_faturamento %}
+                    <tr>
+                        <td>{{ item.codigo }}</td>
+                        <td>{{ item.paciente_codigo }}</td>
+                        <td>{{ item.medico_codigo }}</td>
+                        <td>{{ item.descricao }}</td>
+                        <td>{{ item.data }}</td> <td>{{ item.valor | round(2) | string | replace('.', ',') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="mensagem-sem-registros">Nenhum registro de faturamento (consulta) encontrado para o Médico de código **{{ codigo_digitado }}**.</p>
+        {% endif %}
+    {% else %}
+        <p class="mensagem-sem-registros">Digite o código do médico para iniciar a busca do faturamento.</p>
+    {% endif %}
+
+{% endblock %}

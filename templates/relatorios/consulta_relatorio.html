@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de Consultas</h2>
+    
+    {% if consultas %}
+    <table class="relatorio-tabela">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Exame</th>
+                <th>Data</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+            <tr>
+                <td>{{ consulta.codigo }}</td>
+                <td>{{ consulta.paciente }}</td>
+                <td>{{ consulta.medico }}</td>
+                <td>{{ consulta.exame }}</td>
+                <td>{{ consulta.data }}</td>
+                <td>{{ consulta.hora }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mensagem-sem-registros">Nenhuma consulta encontrada.</p>
+    {% endif %}
+{% endblock %}

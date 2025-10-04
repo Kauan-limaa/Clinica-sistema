@@ -1,0 +1,34 @@
+[
+    {
+        "codigo": 1,
+        "paciente": 1,
+        "medico": 1,
+        "exame": 1,
+        "data": "2025-09-28",
+        "hora": "20:00"
+    },
+    {
+        "codigo": 2,
+        "paciente": 2,
+        "medico": 2,
+        "exame": 1,
+        "data": "2025-09-28",
+        "hora": "20:00"
+    },
+    {
+        "codigo": 5,
+        "paciente": 3,
+        "medico": 1,
+        "exame": 2,
+        "data": "2025-10-03",
+        "hora": "22:00"
+    },
+    {
+        "codigo": 6,
+        "paciente": 3,
+        "medico": 1,
+        "exame": 2,
+        "data": "2025-10-28",
+        "hora": "20:00"
+    }
+]

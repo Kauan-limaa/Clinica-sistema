@@ -1,0 +1,14 @@
+[
+    {
+        "codigo": 1,
+        "descricao_esp": "Cardiologia",
+        "valor_consulta": "250,00",
+        "limite_diario": "1"
+    },
+    {
+        "codigo": 2,
+        "descricao_esp": "Neuro",
+        "valor_consulta": "800,00",
+        "limite_diario": "2"
+    }
+]

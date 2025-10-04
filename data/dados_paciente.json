@@ -1,0 +1,32 @@
+[
+    {
+        "codigo": 1,
+        "nome_paciente": "Kauan Lima Garcia Pires ",
+        "dt_nascimento": "2005-02-17",
+        "endereco": "Av Rui barbosa 175",
+        "telefone": "(18)996794321",
+        "cidade_codigo": 10,
+        "peso": "72",
+        "altura": "1,76"
+    },
+    {
+        "codigo": 2,
+        "nome_paciente": "Danubia Lima de Macedo",
+        "dt_nascimento": "1982-01-09",
+        "endereco": "rua amparo 173",
+        "telefone": "(18)996743898",
+        "cidade_codigo": 1,
+        "peso": "85",
+        "altura": "1,60"
+    },
+    {
+        "codigo": 3,
+        "nome_paciente": "Luzia Garcia Pires",
+        "dt_nascimento": "1972-08-10",
+        "endereco": "rua amparo 132",
+        "telefone": "(18)997852532",
+        "cidade_codigo": 1,
+        "peso": "56",
+        "altura": "1,60"
+    }
+]

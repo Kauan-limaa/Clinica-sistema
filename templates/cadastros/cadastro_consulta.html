@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<h2>Consulta</h2>
+
+<h3>Buscar Consulta</h3>
+<form action="{{ url_for('consultas_bp.buscar') }}" method="GET">
+    <div>
+        <label>Código da consulta:</label>
+        <input type="text" name="codigo" required>
+        <button type="submit">Buscar</button>
+    </div>
+</form>
+
+<hr>
+
+<h3>Dados da consulta</h3>
+<form action="{{ url_for('consultas_bp.cadastrar_consulta_flask') }}" method="POST">
+    <div>
+        <label>Código:</label>
+        <input type="text" name="codigo" readonly value="{{ consulta.codigo if consulta }}">
+    </div>
+    <div>
+        <label>Paciente:</label>
+        <select name="paciente" required>
+            <option value="">Selecione o Paciente</option>
+            {% for paciente in pacientes %}
+            <option value="{{ paciente.codigo }}" 
+                {% if consulta and consulta.paciente == paciente.codigo %}selected{% endif %}>
+                {{ paciente.nome_paciente }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label>Médico:</label>
+        <select name="medico" required>
+            <option value="">Selecione o Médico</option>
+            {% for medico in medicos %}
+            <option value="{{ medico.codigo }}" 
+                {% if consulta and consulta.medico == medico.codigo %}selected{% endif %}>
+                {{ medico.nome_medico }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label>Exame:</label>
+        <select name="exame" required>
+            <option value="">Selecione o Exame</option>
+            {% for exame in exames %}
+            <option value="{{ exame.codigo }}" 
+                {% if consulta and consulta.exame == exame.codigo %}selected{% endif %}>
+                {{ exame.descricao_exa }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label>Valor do Exame:</label>  
+        <input type="text" readonly value="{{ consulta.exame_valor if consulta and consulta.exame_valor }}">
+    </div>
+    <div>
+        <label>Data:</label>
+        <input type="date" name="data" required value="{{ consulta.data if consulta }}">
+    </div>
+    <div>
+        <label>Hora:</label>
+        <input type="time" name="hora" required value="{{ consulta.hora if consulta }}">
+    </div>
+    <div class="botoes">
+        <button type="submit" name="acao" value="cadastrar">Cadastrar</button>
+        <button type="submit" name="acao" value="excluir">Excluir</button>
+        <button type="submit" name="acao" value="editar">Editar</button>
+    </div>
+</form>
+
+{% endblock %}

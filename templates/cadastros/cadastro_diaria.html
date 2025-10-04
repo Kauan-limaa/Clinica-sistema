@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Diária</h2>
+
+<h3>Buscar diária</h3>
+<form action="{{ url_for('diarias_bp.buscar') }}" method="GET">
+    <div>
+        <label>Código da diária:</label>
+        <input type="text" name="codigo" required>
+        <button type="submit">Buscar</button>
+    </div>
+</form>
+
+<hr>
+
+<h3>Dados da diária</h3>
+<form action="{{ url_for('diarias_bp.cadastrar_diaria_flask') }}" method="POST">
+    <div>
+        <label>Código:</label>
+        <input type="text" name="codigo" readonly value="{{ diaria.codigo if diaria }}">
+    </div>
+    <div>
+        <label>Especialidade:</label>
+        <select name="especialidade" required>
+            <option value="">Selecione a Especialidade</option>
+            {% for especialidade in especialidades %}
+            <option value="{{ especialidade.codigo }}"
+                {% if diaria and diaria.especialidade_codigo == especialidade.codigo %}selected{% endif %}>
+                {{ especialidade.descricao_esp }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label>Quantidade de Consultas:</label>
+        <input type="number" name="quantidade_consultas" required value="{{ diaria.quantidade_consultas if diaria }}">
+    </div>
+    <div class="botoes">
+        <button type="submit" name="acao" value="cadastrar">Cadastrar</button>
+        <button type="submit" name="acao" value="excluir">Excluir</button>
+        <button type="submit" name="acao" value="editar">Editar</button>
+    </div>
+</form>
+
+{% endblock %}

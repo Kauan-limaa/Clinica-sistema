@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de exames</h2>
+    
+    {% if exames %}
+    <table class="relatorio-tabela">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Exame</th>
+                <th>Especialidade</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exame in exames %}
+            <tr>
+                <td>{{ exame.codigo }}</td>
+                <td>{{ exame.descricao_exa }}</td>
+                <td>{{ exame.especialidade }}</td>
+                <td>{{ exame.valor_exame }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mensagem-sem-registros">Nenhum exame encontrada.</p>
+    {% endif %}
+{% endblock %}

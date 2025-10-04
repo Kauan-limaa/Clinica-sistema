@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de pacientes</h2>
+    
+    {% if pacientes %}
+    <table class="relatorio-tabela">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Paciente</th>
+                <th>Data de nascimento</th>
+                <th>Endereço</th>
+                <th>Telefone</th>
+                <th>Cidade</th>
+                <th>Peso</th>
+                <th>Altura</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in pacientes %}
+            <tr>
+                <td>{{ paciente.codigo }}</td>
+                <td>{{ paciente.nome_paciente }}</td>
+                <td>{{ paciente.dt_nascimento }}</td>
+                <td>{{ paciente.endereco }}</td>
+                <td>{{ paciente.telefone }}</td>
+                <td>{{ paciente.cidade }}</td>
+                <td>{{ paciente.peso }}</td>
+                <td>{{ paciente.altura }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mensagem-sem-registros">Nenhum médico encontrada.</p>
+    {% endif %}
+{% endblock %}

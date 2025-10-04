@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de Especialidades</h2>
+    
+    {% if especialidades %}
+    <table class="relatorio-tabela">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Valor da Consulta</th>
+                <th>Limite Diário</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for especialidade in especialidades %}
+            <tr>
+                <td>{{ especialidade.codigo }}</td>
+                <td>{{ especialidade.descricao_esp }}</td>
+                <td>{{ especialidade.valor_consulta }}</td>
+                <td>{{ especialidade.limite_diario }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mensagem-sem-registros">Nenhuma especialidade encontrada.</p>
+    {% endif %}
+{% endblock %}

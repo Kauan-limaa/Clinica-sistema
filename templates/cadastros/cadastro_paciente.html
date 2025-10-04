@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Paciente</h2>
+
+<h3>Buscar paciente</h3>
+<form action="{{ url_for('pacientes_bp.buscar') }}" method="GET">
+    <div>
+        <label>Código do paciente:</label>
+        <input type="text" name="codigo" required>
+        <button type="submit">Buscar</button>
+    </div>
+</form>
+
+<hr>
+
+<h3>Dados do paciente</h3>
+<form action="{{ url_for('pacientes_bp.cadastrar_paciente_flask') }}" method="POST">
+    <div>
+        <label>Código:</label>
+        <input type="text" name="codigo" readonly value="{{ paciente.codigo if paciente }}">
+    </div>
+    <div>
+        <label>Paciente:</label>
+        <input type="text" name="paciente" required value="{{ paciente.nome_paciente if paciente }}">
+    </div>
+    <div>
+        <label>Data de nascimento:</label>
+        <input type="date" name="dt_nascimento" required value="{{ paciente.dt_nascimento if paciente }}">
+    </div>
+    <div>
+        <label>Endereço:</label>
+        <input type="text" name="endereco" required value="{{ paciente.endereco if paciente }}">
+    </div>
+    <div>
+        <label>Telefone:</label>
+        <input type="text" name="telefone" required value="{{ paciente.telefone if paciente }}">
+    </div>
+
+    <div class="grupo-localizacao" style="display:flex; gap:12px; align-items:center;">
+        <div style="flex:1;">
+            <label>Cidade:</label>
+            <select name="cidade" required>
+                <option value="">Selecione a Cidade</option>
+                {% for cidade_item in cidades %}
+                <option value="{{ cidade_item.codigo }}" 
+                    {% if paciente and paciente.cidade_codigo|int == cidade_item.codigo %}selected{% endif %}>
+                    {{ cidade_item.nome_cidade.strip() }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="width:12px;"></div>
+
+        <div style="flex:1;">
+            <label>Estado:</label>
+            <input type="text" readonly disabled value="{{ paciente.cidade_estado if paciente }}">
+        </div>
+    </div>
+
+    <div class="grupo-medidas" style="display:flex; gap:12px; align-items:center; margin-top:10px;">
+        <div style="flex:1;">
+            <label>Peso (kg):</label>
+            <input type="text" name="peso" required value="{{ paciente.peso if paciente }}">
+        </div>
+        <div style="width:12px;"></div>
+        <div style="flex:1;">
+            <label>Altura (m):</label>
+            <input type="text" name="altura" required value="{{ paciente.altura if paciente }}">
+        </div>
+    </div>
+>
+<div class="grupo-imc" style="display:flex; gap:12px; align-items:center; margin-top:10px;">
+    {% if paciente %}
+        {% if paciente.get('imc') is not none %}
+            <div style="flex:1;">
+                <label>IMC:</label>
+                <input type="text" disabled value="{{ paciente.get('imc') }}">
+            </div>
+            <div style="width:12px;"></div>
+            <div style="flex:1;">
+                <label>Diagnóstico:</label>
+                <input type="text" disabled
+                       class="{% if paciente.get('diagnostico') == 'Peso normal' %}diagnostico-normal{% 
+                                 elif paciente.get('diagnostico') == 'Sobrepeso' %}diagnostico-sobrepeso{% 
+                                 elif paciente.get('diagnostico') == 'Abaixo do peso' %}diagnostico-abaixo{% 
+                                 else %}diagnostico-obesidade{% endif %}"
+                       value="{{ paciente.get('diagnostico') }}">
+            </div>
+        {% else %}
+            <p>IMC: não foi possível calcular.</p>
+        {% endif %}
+    {% endif %}
+</div>
+
+    <div class="botoes" style="margin-top:12px; display:flex; gap:8px;">
+        <button type="submit" name="acao" value="cadastrar">Cadastrar</button>
+        <button type="submit" name="acao" value="excluir">Excluir</button>
+    </div>
+</form>
+
+{% endblock %}

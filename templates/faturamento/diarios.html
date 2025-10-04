@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de Faturamento Diário</h2>
+
+    <form action="{{ url_for('faturamento_diario_bp.faturamento_diario_flask') }}" method="GET" class="form-busca-data">
+        <label for="data_busca">Selecione a Data:</label>
+        <input type="date" id="data_busca" name="data" value="{{ data_digitada or '' }}" required>
+        <button type="submit" class="botao-submit">Buscar Faturamento</button>
+    </form>
+    
+    <hr>
+    
+    {% if data_digitada %}
+        <h3>
+            Faturamento Total para {{ data_digitada.split('-') | reverse | join('/') }}: 
+            <span class="valor-total">
+                R$ {{ faturamento_total | default(0.0) | round(2) | string | replace('.', ',') }}
+            </span>
+        </h3>
+
+        {% if dados_faturamento %}
+            <table class="relatorio-tabela">
+                <thead>
+                    <tr>
+                        <th>Cód. Consulta</th>
+                        <th>Cód. Paciente</th>
+                        <th>Cód. Médico</th>
+                        <th>Descrição Item</th>
+                        <th>Valor (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in dados_faturamento %}
+                    <tr>
+                        <td>{{ item.codigo }}</td>
+                        <td>{{ item.paciente_codigo }}</td>
+                        <td>{{ item.medico_codigo }}</td>
+                        <td>{{ item.descricao }}</td>
+                        <td>{{ item.valor }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="mensagem-sem-registros">Nenhum registro de faturamento (consulta) encontrado para a data **{{ data_digitada.split('-') | reverse | join('/') }}**.</p>
+        {% endif %}
+    {% else %}
+        <p class="mensagem-sem-registros">Selecione uma data para iniciar a busca do faturamento.</p>
+    {% endif %}
+
+{% endblock %}

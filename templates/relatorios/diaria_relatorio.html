@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de diáris</h2>
+    
+    {% if diarias %}
+    <table class="relatorio-tabela">
+        <thead>
+            <tr>
+                <th>Especialidade</th>
+                <th>Quantidade</th>
+                <th>Código</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for diaria in diarias %}
+            <tr>
+                <td>{{ diaria.especialidade }}</td>
+                <td>{{ diaria.quantidade_consultas }}</td>
+                <td>{{ diaria.codigo }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mensagem-sem-registros">Nenhuma consulta encontrada.</p>
+    {% endif %}
+{% endblock %}

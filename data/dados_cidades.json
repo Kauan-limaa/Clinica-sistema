@@ -1,0 +1,37 @@
+[
+    {
+        "codigo": 1,
+        "nome_cidade": "Assis ",
+        "estado": "SP"
+    },
+    {
+        "codigo": 2,
+        "nome_cidade": "Presidente Prudente ",
+        "estado": "SP"
+    },
+    {
+        "codigo": 4,
+        "nome_cidade": "Bauru",
+        "estado": "SP"
+    },
+    {
+        "codigo": 5,
+        "nome_cidade": "Rio de Janeiro",
+        "estado": "RJ"
+    },
+    {
+        "codigo": 6,
+        "nome_cidade": "Londrina",
+        "estado": "PR"
+    },
+    {
+        "codigo": 10,
+        "nome_cidade": "Assis ",
+        "estado": "SP"
+    },
+    {
+        "codigo": 11,
+        "nome_cidade": "Ibirarema",
+        "estado": "SP"
+    }
+]

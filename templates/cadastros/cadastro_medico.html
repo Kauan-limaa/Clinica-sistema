@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Médico</h2>
+
+<h3>Buscar médico</h3>
+<form action="{{ url_for('medicos_bp.buscar') }}" method="GET">
+    <div>
+        <label>Código do médico:</label>
+        <input type="text" name="codigo" required>
+        <button type="submit">Buscar</button>
+    </div>
+</form>
+
+<hr>
+
+<h3>Dados do médico</h3>
+<form action="{{ url_for('medicos_bp.cadastrar_medico_flask') }}" method="POST">
+    <div>
+        <label>Código:</label>
+        <input type="text" name="codigo" readonly value="{{ medico.codigo if medico }}">
+    </div>
+    <div>
+        <label>Medico:</label>
+        <input type="text" name="medico" required value="{{ medico.nome_medico if medico }}">
+    </div>
+    <div>
+        <label>Endereço:</label>
+        <input type="text" name="endereco" required value="{{ medico.endereco if medico }}">
+    </div>
+    <div>
+        <label>Telefone:</label>
+        <input type="text" name="telefone" required value="{{ medico.telefone if medico }}">
+    </div>
+    <div class="grupo-localizacao">
+        <div>
+            <label>Cidade:</label>
+            <select name="cidade" required>
+                <option value="">Selecione a Cidade</option>
+                {% for cidade_item in cidades %}
+                <option value="{{ cidade_item.codigo }}" 
+                    {% if medico and medico.cidade_codigo == cidade_item.codigo %}selected{% endif %}>
+                    {{ cidade_item.nome_cidade }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="espaco"></div>
+        <div>
+            <label>Estado:</label>
+            <select name="estado" required>
+                <option value="">Selecione o Estado</option>
+                {% set estados_unicos = cidades | map(attribute='estado') | list | unique %}
+                {% for estado_sigla in estados_unicos %}
+                <option value="{{ estado_sigla }}" 
+                    {% if medico and medico.cidade_estado == estado_sigla %}selected{% endif %}>
+                    {{ estado_sigla }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div>
+        <label>Especialidade:</label>
+        <select name="especialidade" required>
+            <option value="">Selecione a Especialidade</option>
+            {% for especialidade_item in especialidades %}
+            <option value="{{ especialidade_item.codigo }}" 
+                {% if medico and medico.especialidade_codigo == especialidade_item.codigo %}selected{% endif %}>
+                {{ especialidade_item.descricao_esp }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="botoes">
+        <button type="submit" name="acao" value="cadastrar">Cadastrar</button>
+        <button type="submit" name="acao" value="excluir">Excluir</button>
+        <button type="submit" name="acao" value="editar">Editar</button>
+    </div>
+</form>
+
+{% endblock %}
