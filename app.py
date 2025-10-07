@@ -50,6 +50,7 @@ from routes.exaustiva.diaria_leitura import relatorios_diaria_bp
 from routes.faturamentos.diario import faturamento_diario_bp
 from routes.faturamentos.medico_fat import faturamento_medico_bp
 from routes.faturamentos.especialidade_fat import faturamento_especialidade_bp
+from routes.faturamentos.entre import faturamento_entre_bp
 
 app.register_blueprint(cidades_bp)
 app.register_blueprint(pacientes_bp)
@@ -70,6 +71,7 @@ app.register_blueprint(relatorios_diaria_bp)
 app.register_blueprint(faturamento_diario_bp)
 app.register_blueprint(faturamento_medico_bp)
 app.register_blueprint(faturamento_especialidade_bp)
+app.register_blueprint(faturamento_entre_bp)
 
 
 @app.route("/")

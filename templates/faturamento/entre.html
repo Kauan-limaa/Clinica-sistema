@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Relatório de Faturamento por Período</h2>
+
+    <form action="{{ url_for('faturamento_entre_bp.faturamento_entre_flask') }}" method="GET" class="form-busca-data">
+        
+        <label for="data_inicio_busca">Data de Início:</label>
+        <input type="date" id="data_inicio_busca" name="data_inicio" value="{{ data_digitada_inicio or '' }}" required>
+        
+        <label for="data_fim_busca">Data de Fim:</label>
+        <input type="date" id="data_fim_busca" name="data_fim" value="{{ data_digitada_fim or '' }}" required>
+        
+        <button type="submit" class="botao-submit">Buscar Faturamento</button>
+    </form>
+    
+    <hr>
+    
+    {% if data_digitada_inicio and data_digitada_fim %}
+        
+        {% set data_inicio_formatada = data_digitada_inicio.split('-') | reverse | join('/') %}
+        {% set data_fim_formatada = data_digitada_fim.split('-') | reverse | join('/') %}
+        
+        <h3>
+            Faturamento Total de **{{ data_inicio_formatada }}** a **{{ data_fim_formatada }}**: 
+            <span class="valor-total">
+                R$ {{ faturamento_total | default(0.0) | round(2) | string | replace('.', ',') }}
+            </span>
+        </h3>
+
+        {% if dados_faturamento %}
+            <table class="relatorio-tabela">
+                <thead>
+                    <tr>
+                        <th>Cód. Consulta</th>
+                        <th>Cód. Paciente</th>
+                        <th>Cód. Médico</th>
+                        <th>Data</th> 
+                        <th>Descrição Item</th>
+                        <th>Valor (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in dados_faturamento %}
+                    <tr>
+                        <td>{{ item.codigo }}</td>
+                        <td>{{ item.paciente_codigo }}</td>
+                        <td>{{ item.medico_codigo }}</td>
+                        <td>{{ item.data.split('-') | reverse | join('/') }}</td> 
+                        <td>{{ item.descricao }}</td>
+                        <td>{{ item.valor | round(2) | string | replace('.', ',') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="mensagem-sem-registros">Nenhum registro de faturamento (consulta) encontrado entre **{{ data_inicio_formatada }}** e **{{ data_fim_formatada }}**.</p>
+        {% endif %}
+    {% else %}
+        <p class="mensagem-sem-registros">Selecione as datas de início e fim para buscar o faturamento por período.</p>
+    {% endif %}
+
+{% endblock %}

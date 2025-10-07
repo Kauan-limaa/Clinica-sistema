@@ -24,11 +24,19 @@
         "hora": "22:00"
     },
     {
-        "codigo": 6,
-        "paciente": 3,
-        "medico": 1,
-        "exame": 2,
-        "data": "2025-10-28",
-        "hora": "20:00"
+        "codigo": 11,
+        "paciente": 1,
+        "medico": 3,
+        "exame": 3,
+        "data": "2025-10-15",
+        "hora": "08:00"
+    },
+    {
+        "codigo": 12,
+        "paciente": 4,
+        "medico": 3,
+        "exame": 3,
+        "data": "2025-10-15",
+        "hora": "10:00"
     }
 ]

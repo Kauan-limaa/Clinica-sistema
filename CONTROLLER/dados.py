@@ -208,6 +208,91 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 EXAMES_FILE = BASE_DIR / 'data' / 'dados_exame.json' 
 CONSULTAS_FILE = BASE_DIR / 'data' / 'dados_consulta.json'
 
+
+def calcular_faturamento_por_periodo(data_inicio_str, data_fim_str):
+    
+    faturamento_total = 0.0
+    consultas_do_periodo = []
+    mapa_exames = {}
+
+    try:
+        data_inicio = datetime.strptime(data_inicio_str, '%Y-%m-%d').date()
+        data_fim = datetime.strptime(data_fim_str, '%Y-%m-%d').date()
+
+        if data_inicio > data_fim:
+            raise ValueError("A data de início não pode ser posterior à data de fim.")
+        
+        with open(EXAMES_FILE, 'r', encoding='utf-8') as f:
+            exames = json.load(f)
+            
+            for exame in exames:
+                valor_str = exame.get('valor_exame', '0,00').replace('.', '').replace(',', '.')
+                try:
+                    codigo_int = int(exame['codigo'])
+                except (ValueError, TypeError):
+                    continue 
+                mapa_exames[codigo_int] = {
+                    "valor": float(valor_str),
+                    "descricao": exame.get('descricao_exa', 'N/A')
+                }
+        
+        with open(CONSULTAS_FILE, 'r', encoding='utf-8') as f:
+            consultas = json.load(f)
+            
+            consultas_processadas = 0
+
+            for consulta in consultas:
+                data_consulta_str = consulta.get('data')
+
+                try:
+                    data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
+                except (ValueError, TypeError):
+                    continue
+
+                if data_inicio <= data_consulta <= data_fim: 
+                    
+                    codigo_exame = consulta.get('exame')
+                    if isinstance(codigo_exame, str) and codigo_exame.isdigit():
+                         codigo_exame = int(codigo_exame)
+                    elif isinstance(codigo_exame, float):
+                         codigo_exame = int(codigo_exame)
+                   
+
+                    dados_exame = mapa_exames.get(codigo_exame, {"valor": 0.0, "descricao": "Exame Não Encontrado"})
+                    
+                    valor_exame = dados_exame["valor"]
+                    faturamento_total += valor_exame
+                    consultas_processadas += 1
+                    
+                    consulta_detalhada = {
+                        "codigo": consulta.get('codigo'),
+                        "paciente_codigo": consulta.get('paciente'),
+                        "medico_codigo": consulta.get('medico'),
+                        "data": data_consulta_str,
+                        "descricao": dados_exame["descricao"],
+                        "valor": valor_exame 
+                    }
+                    consultas_do_periodo.append(consulta_detalhada)
+            
+        return {
+            "faturamento_total": faturamento_total,
+            "consultas": consultas_do_periodo
+        }
+        
+    except FileNotFoundError as e:
+        erro_msg = f"Arquivo não encontrado: '{e.filename}'"
+        print(erro_msg, file=sys.stderr) 
+        return {"faturamento_total": 0.0, "consultas": [], "erro": erro_msg}
+    except ValueError as e:
+        erro_msg = f"{e}. Certifique-se de que as datas estão no formato 'AAAA-MM-DD'."
+        print(erro_msg, file=sys.stderr)
+        return {"faturamento_total": 0.0, "consultas": [], "erro": erro_msg}
+    except Exception as e:
+        erro_msg = f"ERRO CRÍTICO NO PROCESSAMENTO: {e}"
+        print(erro_msg, file=sys.stderr)
+        return {"faturamento_total": 0.0, "consultas": [], "erro": erro_msg}
+    
+
 def calcular_faturamento_diario(data_desejada):
     
     faturamento_total = 0.0

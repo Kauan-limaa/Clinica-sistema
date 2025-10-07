@@ -28,5 +28,15 @@
         "cidade_codigo": 1,
         "peso": "56",
         "altura": "1,60"
+    },
+    {
+        "codigo": 4,
+        "nome_paciente": "Ana Messa",
+        "dt_nascimento": "2006-01-27",
+        "endereco": "rua sei la 1500",
+        "telefone": "998745621",
+        "cidade_codigo": 1,
+        "peso": "56",
+        "altura": "1,60"
     }
 ]

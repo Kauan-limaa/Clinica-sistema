@@ -10,5 +10,11 @@
         "descricao_exa": "raio x de torax",
         "especialidade_codigo": 1,
         "valor_exame": "250,00"
+    },
+    {
+        "codigo": 3,
+        "descricao_exa": "Raio x cranio",
+        "especialidade_codigo": 2,
+        "valor_exame": "1000"
     }
 ]

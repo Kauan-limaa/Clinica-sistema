@@ -5,8 +5,18 @@
         "codigo": "202510031"
     },
     {
-        "especialidade_codigo": 1,
+        "especialidade_codigo": 2,
         "quantidade_consultas": "1",
-        "codigo": "202510281"
+        "codigo": "202510062"
+    },
+    {
+        "especialidade_codigo": 2,
+        "quantidade_consultas": "1",
+        "codigo": "202510202"
+    },
+    {
+        "especialidade_codigo": 2,
+        "quantidade_consultas": "2",
+        "codigo": "202510152"
     }
 ]

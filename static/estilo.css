@@ -277,7 +277,7 @@ button:hover {
     width: 100%;
 }
 
-/* Estilos adicionais para resultado */
+
 .secao-totais {
     background-color: #e6f0ff;
     padding: 20px;
@@ -304,24 +304,23 @@ button:hover {
 }
 
 .relatorio-tabela tfoot .total td {
-    background-color: #e6f0ff; /* Cor da classe secao-totais */
-    color: #2a63d4; /* Cor forte para o texto */
+    background-color: #e6f0ff; 
+    color: #2a63d4; 
     font-size: 1.1rem;
     font-weight: bold;
     border-top: 2px solid #377af0;
 }
 
-/* Alinhamento dos valores */
+
 .valor { 
     text-align: right; 
 }
 
-/* Alinhamento do cabeçalho da coluna de valor */
+
 .relatorio-tabela th.valor {
     text-align: right;
 }
 
-/* Usando a classe de mensagem do seu CSS */
 .mensagem-sem-registros {
     text-align: center;
     margin-top: 30px;

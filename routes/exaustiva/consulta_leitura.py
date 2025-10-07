@@ -11,6 +11,10 @@ def relatorio_consultas_flask():
     
     nos_arvore = arvore_consulta.percorrer_em_ordem()
 
+    contador = 0
+    exame_valor = 0
+    valor_total = 0
+
     for no in nos_arvore:
         consulta = buscar_por_codigo(arvore_consulta, "data/dados_consulta.json", no['codigo'])
         if consulta:
@@ -22,7 +26,15 @@ def relatorio_consultas_flask():
             consulta['paciente'] = paciente['nome_paciente'] if paciente else 'Não encontrado'
             consulta['medico'] = medico['nome_medico'] if medico else 'Não encontrado'
             consulta['exame'] = exame['descricao_exa'] if exame else 'Não encontrado'
+            consulta['valor'] = exame['valor_exame'] if exame else 'Não encontrado'
+
+            exame_valor = exame.get('valor_exame', '0,00').replace('.', '').replace(',', '.')
+            exame_valor = float(exame_valor)
+
+            valor_total = valor_total + exame_valor
+
             
             relatorio_consultas.append(consulta)
+            contador = contador + 1
     
-    return render_template("relatorios/consulta_relatorio.html", consultas=relatorio_consultas)
+    return render_template("relatorios/consulta_relatorio.html", consultas=relatorio_consultas, contador = contador, valor_total = valor_total)

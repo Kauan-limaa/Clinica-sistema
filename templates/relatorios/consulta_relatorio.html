@@ -13,6 +13,7 @@
                 <th>Exame</th>
                 <th>Data</th>
                 <th>Hora</th>
+                <th>Valor</th>
             </tr>
         </thead>
         <tbody>
@@ -24,10 +25,24 @@
                 <td>{{ consulta.exame }}</td>
                 <td>{{ consulta.data }}</td>
                 <td>{{ consulta.hora }}</td>
+                <td>{{ consulta.valor }}</td>
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td> 
+                
+                <td style="text-align: right; font-weight: bold; padding-top: 10px;">
+                    TOTAL DE PACIENTES: {{ contador }}
+                </td>
+                
+                <td colspan="2" style="text-align: right; font-weight: bold; padding-top: 10px;">
+                    VALOR TOTAL: R$ {{ valor_total }}
+                </td>
+            </tr>
+        </tfoot>
+        </table>
     {% else %}
     <p class="mensagem-sem-registros">Nenhuma consulta encontrada.</p>
     {% endif %}

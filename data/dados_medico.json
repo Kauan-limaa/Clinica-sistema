@@ -14,5 +14,13 @@
         "telefone": "(18)99672665",
         "cidade_codigo": 10,
         "especialidade_codigo": 2
+    },
+    {
+        "codigo": 3,
+        "nome_medico": "Antonio",
+        "endereco": "rua das pratas 1500",
+        "telefone": "(18)99564-4525",
+        "cidade_codigo": 2,
+        "especialidade_codigo": 2
     }
 ]
